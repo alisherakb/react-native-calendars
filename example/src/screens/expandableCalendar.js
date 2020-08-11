@@ -7,12 +7,16 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Button
+  Button,
 } from 'react-native';
-import {ExpandableCalendar, AgendaList, CalendarProvider, WeekCalendar} from 'react-native-calendars';
+import {
+  ExpandableCalendar,
+  AgendaList,
+  CalendarProvider,
+  WeekCalendar,
+} from 'react-native-calendars';
 
 const testIDs = require('../testIDs');
-
 
 const today = new Date().toISOString().split('T')[0];
 const fastDate = getPastDate(3);
@@ -24,7 +28,7 @@ const lightThemeColor = '#EBF9F9';
 function getFutureDates(days) {
   const array = [];
   for (let index = 1; index <= days; index++) {
-    const date = new Date(Date.now() + (864e5 * index)); // 864e5 == 86400000 == 24*60*60*1000
+    const date = new Date(Date.now() + 864e5 * index); // 864e5 == 86400000 == 24*60*60*1000
     const dateString = date.toISOString().split('T')[0];
     array.push(dateString);
   }
@@ -32,33 +36,145 @@ function getFutureDates(days) {
 }
 
 function getPastDate(days) {
-  return new Date(Date.now() - (864e5 * days)).toISOString().split('T')[0];
+  return new Date(Date.now() - 864e5 * days).toISOString().split('T')[0];
 }
 
 const ITEMS = [
-  {title: dates[0], data: [{hour: '12am', duration: '1h', title: 'First Yoga'}]},
-  {title: dates[1], data: [{hour: '4pm', duration: '1h', title: 'Pilates ABC'}, {hour: '5pm', duration: '1h', title: 'Vinyasa Yoga'}]},
-  {title: dates[2], data: [{hour: '1pm', duration: '1h', title: 'Ashtanga Yoga'}, {hour: '2pm', duration: '1h', title: 'Deep Streches'}, {hour: '3pm', duration: '1h', title: 'Private Yoga'}]},
-  {title: dates[3], data: [{hour: '12am', duration: '1h', title: 'Ashtanga Yoga'}]},
+  {
+    title: dates[0],
+    data: [
+      {
+        hour: '12am',
+        duration: '1h',
+        title: 'Asalya Yuldasheva',
+        services: ['Шилак'],
+      },
+    ],
+  },
+  {
+    title: dates[1],
+    data: [
+      {hour: '4pm', duration: '1h', title: 'Diana', services: ['Шилак']},
+      {hour: '5pm', duration: '1h', title: 'Malika', services: ['Педикюр']},
+      {hour: '11pm', duration: '1h', title: 'Break', services: []},
+    ],
+  },
+  {
+    title: dates[2],
+    data: [
+      {hour: '1pm', duration: '1.5h', title: 'Asalya', services: ['Маникюр']},
+      {hour: '2pm', duration: '1h', title: 'Deep', services: ['Маникюр']},
+      {
+        hour: '3pm',
+        duration: '1h',
+        title: 'Private Yoga',
+        services: ['Маникюр'],
+      },
+    ],
+  },
+  {
+    title: dates[3],
+    data: [
+      {
+        hour: '12am',
+        duration: '1h',
+        title: 'Ashtanga Yoga',
+        services: ['Маникюр'],
+      },
+    ],
+  },
   {title: dates[4], data: [{}]},
-  {title: dates[5], data: [{hour: '9pm', duration: '1h', title: 'Middle Yoga'}, {hour: '10pm', duration: '1h', title: 'Ashtanga'}, {hour: '11pm', duration: '1h', title: 'TRX'}, {hour: '12pm', duration: '1h', title: 'Running Group'}]},
-  {title: dates[6], data: [{hour: '12am', duration: '1h', title: 'Ashtanga Yoga'}]},
+  {
+    title: dates[5],
+    data: [
+      {
+        hour: '9pm',
+        duration: '1h',
+        title: 'Middle Yoga',
+        services: ['Маникюр'],
+      },
+      {hour: '10pm', duration: '1h', title: 'Ashtanga', services: ['Маникюр']},
+      {hour: '11pm', duration: '1h', title: 'TRX', services: ['Маникюр']},
+      {hour: '11pm', duration: '1h', title: 'Break', services: []},
+      {
+        hour: '12pm',
+        duration: '1h',
+        title: 'Running Group',
+        services: ['Маникюр'],
+      },
+    ],
+  },
+  {
+    title: dates[6],
+    data: [
+      {
+        hour: '12am',
+        duration: '1h',
+        title: 'Ashtanga Yoga',
+        services: ['Маникюр'],
+      },
+    ],
+  },
   {title: dates[7], data: [{}]},
-  {title: dates[8], data: [{hour: '9pm', duration: '1h', title: 'Pilates Reformer'}, {hour: '10pm', duration: '1h', title: 'Ashtanga'}, {hour: '11pm', duration: '1h', title: 'TRX'}, {hour: '12pm', duration: '1h', title: 'Running Group'}]},
-  {title: dates[9], data: [{hour: '1pm', duration: '1h', title: 'Ashtanga Yoga'}, {hour: '2pm', duration: '1h', title: 'Deep Streches'}, {hour: '3pm', duration: '1h', title: 'Private Yoga'}]},
-  {title: dates[10], data: [{hour: '12am', duration: '1h', title: 'Last Yoga'}]}
+  {
+    title: dates[8],
+    data: [
+      {
+        hour: '9pm',
+        duration: '1h',
+        title: 'Pilates Reformer',
+        services: ['Маникюр'],
+      },
+      {hour: '10pm', duration: '1h', title: 'Ashtanga', services: ['Маникюр']},
+      {hour: '11pm', duration: '1h', title: 'TRX', services: ['Маникюр']},
+      {
+        hour: '12pm',
+        duration: '1h',
+        title: 'Running Group',
+        services: ['Маникюр'],
+      },
+    ],
+  },
+  {
+    title: dates[9],
+    data: [
+      {
+        hour: '1pm',
+        duration: '1h',
+        title: 'Ashtanga Yoga',
+        services: ['Педикюр'],
+      },
+      {
+        hour: '2pm',
+        duration: '1h',
+        title: 'Deep Streches',
+        services: ['Педикюр'],
+      },
+      {
+        hour: '3pm',
+        duration: '1h',
+        title: 'Private Yoga',
+        services: ['Педикюр'],
+      },
+    ],
+  },
+  {
+    title: dates[10],
+    data: [
+      {hour: '12am', duration: '1h', title: 'Last Yoga', services: ['Педикюр']},
+    ],
+  },
 ];
 
 export default class ExpandableCalendarScreen extends Component {
-
   onDateChanged = (/* date, updateSource */) => {
     // console.warn('ExpandableCalendarScreen onDateChanged: ', date, updateSource);
     // fetch and set data for date + week ahead
-  }
+  };
 
   onMonthChange = (/* month, updateSource */) => {
     // console.warn('ExpandableCalendarScreen onMonthChange: ', month, updateSource);
-  }
+  };
 
   buttonPressed() {
     Alert.alert('show more');
@@ -71,7 +187,7 @@ export default class ExpandableCalendarScreen extends Component {
   renderEmptyItem() {
     return (
       <View style={styles.emptyItem}>
-        <Text style={styles.emptyItemText}>No Events Planned</Text>
+        <Text style={styles.emptyItemText}>Выходной</Text>
       </View>
     );
   }
@@ -80,28 +196,34 @@ export default class ExpandableCalendarScreen extends Component {
     if (_.isEmpty(item)) {
       return this.renderEmptyItem();
     }
-
-    return (
-      <TouchableOpacity
-        onPress={() => this.itemPressed(item.title)}
-        style={styles.item}
-        testID={testIDs.agenda.ITEM}
-      >
-        <View>
-          <Text style={styles.itemHourText}>{item.hour}</Text>
-          <Text style={styles.itemDurationText}>{item.duration}</Text>
+    if (item.title !== 'Break') {
+      return (
+        <TouchableOpacity
+          onPress={() => this.itemPressed(item.title)}
+          style={styles.item}>
+          <View>
+            <Text style={styles.itemTitleText}>{item.title}</Text>
+            <Text style={styles.itemServiceText}>{item.services[0]}</Text>
+          </View>
+          <View />
+          <View>
+            <Text style={styles.itemStartDateText}>{item.hour}</Text>
+          </View>
+        </TouchableOpacity>
+      );
+    } else {
+      return (
+        <View style={styles.breakItem}>
+          <Text style={styles.breakItemTitle}>Перерыв</Text>
+          <Text style={styles.breakItemDate}>{item.hour}</Text>
         </View>
-        <Text style={styles.itemTitleText}>{item.title}</Text>
-        <View style={styles.itemButtonContainer}>
-          <Button color={'grey'} title={'Info'} onPress={this.buttonPressed}/>
-        </View>
-      </TouchableOpacity>
-    );
-  }
+      );
+    }
+  };
 
   getMarkedDates = () => {
     const marked = {};
-    ITEMS.forEach(item => {
+    ITEMS.forEach((item) => {
       // NOTE: only mark dates with data
       if (item.data && item.data.length > 0 && !_.isEmpty(item.data[0])) {
         marked[item.title] = {marked: true};
@@ -110,7 +232,7 @@ export default class ExpandableCalendarScreen extends Component {
       }
     });
     return marked;
-  }
+  };
 
   getTheme = () => {
     const disabledColor = 'grey';
@@ -144,9 +266,9 @@ export default class ExpandableCalendarScreen extends Component {
       dotColor: themeColor,
       selectedDotColor: 'white',
       disabledDotColor: disabledColor,
-      dotStyle: {marginTop: -2}
+      dotStyle: {marginTop: -2},
     };
-  }
+  };
 
   render() {
     return (
@@ -161,12 +283,13 @@ export default class ExpandableCalendarScreen extends Component {
         // }}
         // todayBottomMargin={16}
       >
-        {this.props.weekView ?
+        {this.props.weekView ? (
           <WeekCalendar
             testID={testIDs.weekCalendar.CONTAINER}
             firstDay={1}
             markedDates={this.getMarkedDates()}
-          /> :
+          />
+        ) : (
           <ExpandableCalendar
             testID={testIDs.expandableCalendar.CONTAINER}
             // horizontal={false}
@@ -184,7 +307,7 @@ export default class ExpandableCalendarScreen extends Component {
             leftArrowImageSource={require('../img/previous.png')}
             rightArrowImageSource={require('../img/next.png')}
           />
-        }
+        )}
         <AgendaList
           sections={ITEMS}
           extraData={this.state}
@@ -199,48 +322,90 @@ export default class ExpandableCalendarScreen extends Component {
 const styles = StyleSheet.create({
   calendar: {
     paddingLeft: 20,
-    paddingRight: 20
+    paddingRight: 20,
   },
   section: {
     backgroundColor: lightThemeColor,
     color: 'grey',
-    textTransform: 'capitalize'
+    textTransform: 'capitalize',
   },
   item: {
-    padding: 20,
-    backgroundColor: 'white',
-    borderBottomWidth: 1,
-    borderBottomColor: 'lightgrey',
-    flexDirection: 'row'
+    marginLeft: 72,
+    paddingHorizontal: 20,
+    marginRight: 20,
+    paddingVertical: 10,
+    // borderBottomWidth: 1,
+    // borderBottomColor: 'lightgrey',
+    backgroundColor: '#FED985',
+    borderRadius: 21,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
   },
   itemHourText: {
-    color: 'black'
+    color: 'black',
   },
   itemDurationText: {
     color: 'grey',
     fontSize: 12,
     marginTop: 4,
-    marginLeft: 4
+    marginLeft: 4,
   },
   itemTitleText: {
     color: 'black',
-    marginLeft: 16,
     fontWeight: 'bold',
-    fontSize: 16
+    fontSize: 18,
+    lineHeight: 26,
+  },
+  itemServiceText: {
+    color: 'black',
+    opacity: 0.8,
+    lineHeight: 20,
+  },
+  itemStartDateText: {
+    color: 'black',
+    fontSize: 14,
   },
   itemButtonContainer: {
     flex: 1,
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
   },
   emptyItem: {
-    paddingLeft: 20,
-    height: 52,
+    marginLeft: 72,
+    paddingHorizontal: 20,
+    marginRight: 20,
+    paddingVertical: 10,
+    backgroundColor: 'white',
+    borderRadius: 21,
+    alignItems: 'center',
     justifyContent: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: 'lightgrey'
+    borderWidth: 3,
+    flexDirection: 'row',
   },
   emptyItemText: {
-    color: 'lightgrey',
-    fontSize: 14
-  }
+    color: 'black',
+    fontSize: 16,
+    lineHeight: 24,
+  },
+  breakItem: {
+    marginLeft: 72,
+    paddingHorizontal: 20,
+    marginRight: 20,
+    paddingVertical: 10,
+    borderRadius: 21,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderWidth: 2,
+    flexDirection: 'row',
+  },
+  breakItemTitle: {
+    color: 'black',
+    fontSize: 16,
+    lineHeight: 24,
+  },
+  breakItemDate: {
+    color: 'black',
+    fontSize: 14,
+    lineHeight: 24,
+  },
 });
